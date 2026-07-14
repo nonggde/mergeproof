@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Evidence-backed release risk analysis for public GitHub pull requests." />
+		<title>MergeProof - PR release evidence</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="/styles.css" />
+	</head>
+	<body>
+		<header class="topbar">
+			<a class="brand" href="/" aria-label="MergeProof home">
+				<span class="brand-mark">MP</span>
+				<span>MergeProof</span>
+			</a>
+			<div class="runtime-status">
+				<span class="status-dot" aria-hidden="true"></span>
+				<span>GPT-5.6</span>
+				<span class="status-separator">/</span>
+				<span>Evidence mode</span>
+			</div>
+			<a class="repo-link" href="https://github.com/nonggde/mergeproof" target="_blank" rel="noreferrer">Repository <span aria-hidden="true">?</span></a>
+		</header>
+
+		<main class="workspace">
+			<aside class="control-rail">
+				<section class="control-section">
+					<div class="section-kicker">New analysis</div>
+					<h1>Pull request evidence</h1>
+					<form id="analysis-form">
+						<label for="pr-url">GitHub PR URL</label>
+						<input id="pr-url" name="prUrl" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="https://github.com/owner/repo/pull/123" required />
+						<div class="form-actions">
+							<button class="primary-button" id="analyze-button" type="submit">Analyze PR <span aria-hidden="true">?</span></button>
+							<button class="secondary-button" id="sample-button" type="button">Load sample</button>
+						</div>
+					</form>
+					<div class="error-message" id="error-message" role="alert" hidden></div>
+				</section>
+
+				<section class="control-section evidence-section" aria-labelledby="evidence-heading">
+					<div class="rail-heading-row">
+						<h2 id="evidence-heading">Evidence scope</h2>
+						<span id="evidence-count">0 files</span>
+					</div>
+					<div class="scope-grid" id="scope-grid">
+						<div><span>Base</span><strong>--</strong></div>
+						<div><span>Head</span><strong>--</strong></div>
+						<div><span>Add</span><strong>+0</strong></div>
+						<div><span>Delete</span><strong>-0</strong></div>
+					</div>
+					<div class="file-ledger" id="file-ledger">
+						<div class="empty-rail-state">No evidence loaded</div>
+					</div>
+				</section>
+			</aside>
+
+			<section class="analysis-pane">
+				<div class="analysis-header">
+					<div>
+						<div class="section-kicker">Release brief</div>
+						<h2 id="analysis-title">Awaiting pull request</h2>
+					</div>
+					<div class="report-actions">
+						<button class="icon-button" id="copy-button" type="button" title="Copy report" aria-label="Copy report" disabled>?</button>
+						<button class="icon-button" id="download-button" type="button" title="Download JSON report" aria-label="Download JSON report" disabled>?</button>
+					</div>
+				</div>
+
+				<div class="empty-analysis" id="empty-analysis">
+					<div class="empty-index">00</div>
+					<div>
+						<strong>No analysis loaded</strong>
+						<span>Risk findings, targeted checks, and release evidence will appear here.</span>
+					</div>
+				</div>
+
+				<div class="loading-analysis" id="loading-analysis" hidden>
+					<div class="loading-line"><span>01</span><strong>Collecting PR metadata and patches</strong><i></i></div>
+					<div class="loading-line"><span>02</span><strong>Tracing changed surfaces</strong><i></i></div>
+					<div class="loading-line"><span>03</span><strong>Building release evidence with GPT-5.6</strong><i></i></div>
+				</div>
+
+				<div class="report" id="report" hidden>
+					<section class="verdict-band" id="verdict-band">
+						<div class="risk-gauge"><span>Risk score</span><strong id="risk-score">--</strong><small>/100</small></div>
+						<div class="verdict-copy"><span id="verdict-label">--</span><p id="verdict-summary"></p></div>
+						<div class="confidence"><span>Confidence</span><strong id="confidence-value">--</strong><small id="model-value">--</small></div>
+					</section>
+
+					<section class="impact-strip" aria-labelledby="impact-heading">
+						<div class="panel-title"><span>01</span><h3 id="impact-heading">Impact map</h3></div>
+						<div class="impact-list" id="impact-list"></div>
+					</section>
+
+					<nav class="report-tabs" aria-label="Report views">
+						<button type="button" class="report-tab active" data-tab="findings">Findings <span id="finding-total">0</span></button>
+						<button type="button" class="report-tab" data-tab="tests">Test plan <span id="test-total">0</span></button>
+						<button type="button" class="report-tab" data-tab="release">Release <span id="release-total">0</span></button>
+					</nav>
+
+					<section class="report-panel active" data-panel="findings">
+						<div class="finding-table" id="finding-list"></div>
+					</section>
+					<section class="report-panel" data-panel="tests">
+						<div class="test-table" id="test-list"></div>
+					</section>
+					<section class="report-panel" data-panel="release">
+						<div class="release-grid" id="release-list"></div>
+						<div class="unknowns" id="unknowns"></div>
+					</section>
+				</div>
+			</section>
+		</main>
+
+		<footer class="footer-bar">
+			<span>Public GitHub evidence only</span>
+			<span>Structured Responses API output</span>
+			<span id="request-id">Request --</span>
+		</footer>
+		<script src="/app.js" defer></script>
+	</body>
+</html>
