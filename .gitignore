@@ -165,3 +165,6 @@ dist
 .env*
 !.env.example
 .wrangler/
+
+# Submission production assets are kept locally; the public demo is on YouTube.
+videos/

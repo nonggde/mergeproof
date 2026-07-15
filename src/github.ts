@@ -119,9 +119,11 @@ export async function collectPullRequestEvidence(
 	]);
 
 	let patchBudget = MAX_TOTAL_PATCH_CHARS;
+	let patchEvidenceTruncated = false;
 	const files: ChangedFile[] = rawFiles.slice(0, MAX_FILES).map((file) => {
 		const rawPatch = file.patch || '(binary file or patch unavailable)';
 		const patch = rawPatch.slice(0, Math.min(MAX_PATCH_CHARS, patchBudget));
+		if (patch.length < rawPatch.length) patchEvidenceTruncated = true;
 		patchBudget = Math.max(0, patchBudget - patch.length);
 		return {
 			path: file.filename,
@@ -143,6 +145,6 @@ export async function collectPullRequestEvidence(
 		deletions: pull.deletions,
 		changedFiles: pull.changed_files,
 		files,
-		truncated: pull.changed_files > files.length || patchBudget === 0,
+		truncated: pull.changed_files > files.length || patchEvidenceTruncated,
 	};
 }

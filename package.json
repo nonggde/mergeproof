@@ -4,7 +4,7 @@
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
-		"check": "tsc --noEmit && tsc -p test/tsconfig.json --noEmit && node --check public/app.js && wrangler deploy --dry-run",
+    "check": "tsc --noEmit && tsc -p test/tsconfig.json --noEmit && node --check public/app.js && wrangler deploy --dry-run",
     "deploy": "wrangler deploy --minify",
     "dev": "wrangler dev --port 8787",
     "start": "wrangler dev --port 8787",
@@ -13,7 +13,7 @@
     "cf-typegen": "wrangler types --include-runtime=false"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20260714.1",
+    "@cloudflare/workers-types": "^5.20260715.1",
     "typescript": "latest",
     "vitest": "latest",
     "wrangler": "latest"

@@ -2,6 +2,8 @@
 
 MergeProof turns a public GitHub pull request into an evidence-backed release brief. It collects bounded PR metadata and patch evidence, then asks GPT-5.6 (`gpt-5.6-sol`) for a structured verdict, affected surfaces, cited findings, targeted tests, release steps, rollback checks, and explicit unknowns.
 
+**Live app:** [mergeproof.a13553776411.workers.dev](https://mergeproof.a13553776411.workers.dev)
+
 The product is deliberately narrower than a general code reviewer: every claim must point back to a supplied changed-file path, and missing context is reported as an unknown instead of being invented.
 
 ## What it does
@@ -18,6 +20,14 @@ The product is deliberately narrower than a general code reviewer: every claim m
 MergeProof is a single Cloudflare Worker with static assets. The browser sends only a PR URL. The Worker validates it, fetches bounded public evidence from GitHub, calls the OpenAI Responses API, validates the structured result, and returns one report payload.
 
 See [docs/architecture.md](docs/architecture.md) for the request flow and trust boundaries.
+
+## Built with Codex and GPT-5.6
+
+Codex was used throughout the project to turn the initial release-risk concept into a narrow, testable product: defining the evidence contract, implementing bounded GitHub ingestion, pressure-testing trust boundaries, generating the strict response schema, building the responsive evidence workspace, and running the final test and deployment checks.
+
+GPT-5.6 is the runtime decision engine. MergeProof calls the Responses API with medium reasoning and strict JSON Schema output. The model receives untrusted PR content only as user input, must cite supplied file paths for every finding, and must move unsupported assumptions into an explicit `unknowns` list.
+
+The live flow has been verified against a public `openai/openai-node` pull request. It returned a real OpenAI response ID and a complete evidence-cited release report on desktop and mobile.
 
 ## Local development
 
@@ -63,6 +73,8 @@ npm run deploy
 npm test       # URL validation and Worker route tests
 npm run check # TypeScript, browser JavaScript syntax, and Wrangler dry-run build
 ```
+
+The production Worker is also checked with a real GPT-5.6 request before release. See [docs/submission.md](docs/submission.md) for the verified submission artifacts and demo plan.
 
 ## License
 

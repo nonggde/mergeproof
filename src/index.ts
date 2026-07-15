@@ -114,7 +114,9 @@ export default {
 		} catch (error) {
 			const message = error instanceof Error ? error.message : 'Unexpected error.';
 			console.error(JSON.stringify({ message: 'request_failed', path: url.pathname, error: message }));
-			const status = /valid|format|supported|required|not found/i.test(message) ? 400 : 502;
+			const status = error instanceof SyntaxError || /valid|format|supported|required|not found|too large/i.test(message)
+				? 400
+				: 502;
 			return json({ error: message }, status);
 		}
 	},
