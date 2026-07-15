@@ -12,8 +12,22 @@ MergeProof turns a public GitHub pull request into an evidence-cited release dec
 
 - Live app: https://mergeproof.a13553776411.workers.dev
 - Repository: https://github.com/nonggde/mergeproof
-- Demo video: https://youtu.be/P9kjeAgAaWU
+- Demo video: https://youtu.be/AM4VooBLbWU
 - Devpost project: https://devpost.com/software/mergeproof
+
+## Submission status
+
+- Devpost submission ID: `1084628`
+- Status: Submitted (`5/5 steps done`, `Project submitted!`)
+- Category: Developer Tools
+- Submitted video: public YouTube video, 1 minute 42 seconds, with narration
+- Submission deadline: July 22, 2026 at 08:00 Beijing time
+- Last verified: July 15, 2026
+
+Final video validation: H.264 at 1920 x 1080 and 30 fps, AAC 48 kHz stereo,
+102.229 seconds total duration, no silence longer than 1.5 seconds, and no
+unexpected black frames. The detected 0.47-second black interval is the
+intentional wipe transition between the evidence and product scenes.
 
 ## Devpost copy
 
