@@ -1,6 +1,5 @@
 import type { MergeProofAnalysis, PullRequestEvidence } from './types';
 
-const OPENAI_RESPONSES_URL = 'https://api.openai.com/v1/responses';
 const MAX_OPENAI_RESPONSE_BYTES = 1_000_000;
 const OPENAI_TIMEOUT_MS = 120_000;
 
@@ -135,8 +134,10 @@ export async function analyzeWithOpenAI(
 	evidence: PullRequestEvidence,
 	apiKey: string,
 	model: string,
+	apiBase: string,
 ): Promise<{ responseId: string; analysis: MergeProofAnalysis }> {
-	const response = await fetch(OPENAI_RESPONSES_URL, {
+	const responsesUrl = `${apiBase.replace(/\/$/, '')}/responses`;
+	const response = await fetch(responsesUrl, {
 		method: 'POST',
 		headers: {
 			Authorization: `Bearer ${apiKey}`,

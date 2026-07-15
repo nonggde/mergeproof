@@ -1,6 +1,6 @@
 # MergeProof
 
-MergeProof turns a public GitHub pull request into an evidence-backed release brief. It collects bounded PR metadata and patch evidence, then asks GPT-5.6 for a structured verdict, affected surfaces, cited findings, targeted tests, release steps, rollback checks, and explicit unknowns.
+MergeProof turns a public GitHub pull request into an evidence-backed release brief. It collects bounded PR metadata and patch evidence, then asks GPT-5.6 (`gpt-5.6-sol`) for a structured verdict, affected surfaces, cited findings, targeted tests, release steps, rollback checks, and explicit unknowns.
 
 The product is deliberately narrower than a general code reviewer: every claim must point back to a supplied changed-file path, and missing context is reported as an unknown instead of being invented.
 
@@ -9,7 +9,7 @@ The product is deliberately narrower than a general code reviewer: every claim m
 - Accepts canonical public `github.com/{owner}/{repo}/pull/{number}` URLs.
 - Reads PR metadata and up to 40 changed-file patches through the GitHub API.
 - Limits each patch to 4,000 characters and total patch evidence to 48,000 characters.
-- Uses the OpenAI Responses API with GPT-5.6 medium reasoning and strict JSON Schema output.
+- Uses an OpenAI-compatible Responses API with GPT-5.6 medium reasoning and strict JSON Schema output.
 - Presents a release verdict, risk score, impact map, findings, test plan, deployment steps, rollback steps, and unknowns.
 - Exports the complete evidence and analysis as JSON.
 
@@ -36,6 +36,8 @@ npm run dev
 Then open `http://localhost:8787`.
 
 An optional `GITHUB_TOKEN` raises GitHub API rate limits. Never commit `.dev.vars`; it is ignored by Git.
+
+For an OpenAI-compatible gateway, set `OPENAI_GATEWAY_BASE` in `.dev.vars` to its `/v1` base URL. The committed deployment configuration defaults to the official OpenAI API.
 
 ## Deploy
 

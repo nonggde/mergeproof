@@ -12,8 +12,8 @@ Cloudflare Worker
   +----> GitHub REST API
   |        PR metadata + first 40 changed files
   |
-  +----> OpenAI Responses API
-  |        GPT-5.6 + strict JSON Schema
+  +----> OpenAI-compatible Responses API
+  |        GPT-5.6 (`gpt-5.6-sol`) + strict JSON Schema
   v
 Structured release report
   verdict | impact | findings | tests | release | rollback | unknowns

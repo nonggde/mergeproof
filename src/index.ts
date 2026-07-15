@@ -3,6 +3,7 @@ import { analyzeWithOpenAI } from './openai';
 import type { AnalysisResponse } from './types';
 
 const MAX_REQUEST_BYTES = 8_192;
+type RuntimeEnv = Env & { OPENAI_GATEWAY_BASE?: string };
 
 async function readRequestJson(request: Request): Promise<unknown> {
 	const declaredLength = Number(request.headers.get('content-length') || 0);
@@ -84,7 +85,12 @@ export default {
 					env.GITHUB_API_BASE,
 					env.GITHUB_TOKEN || undefined,
 				);
-				const result = await analyzeWithOpenAI(evidence, env.OPENAI_API_KEY, env.OPENAI_MODEL);
+				const result = await analyzeWithOpenAI(
+					evidence,
+					env.OPENAI_API_KEY,
+					env.OPENAI_MODEL,
+					env.OPENAI_GATEWAY_BASE || env.OPENAI_API_BASE,
+				);
 				const payload: AnalysisResponse = {
 					requestId: crypto.randomUUID(),
 					model: env.OPENAI_MODEL,
@@ -112,4 +118,4 @@ export default {
 			return json({ error: message }, status);
 		}
 	},
-} satisfies ExportedHandler<Env>;
+} satisfies ExportedHandler<RuntimeEnv>;

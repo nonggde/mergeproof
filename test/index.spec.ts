@@ -6,7 +6,8 @@ const env = {
 	ASSETS: {
 		fetch: async () => new Response('<!doctype html><title>MergeProof</title>'),
 	},
-	OPENAI_MODEL: 'gpt-5.6',
+	OPENAI_MODEL: 'gpt-5.6-sol',
+	OPENAI_API_BASE: 'https://api.openai.com/v1',
 	GITHUB_API_BASE: 'https://api.github.com',
 	OPENAI_API_KEY: 'local-placeholder',
 	GITHUB_TOKEN: '',
